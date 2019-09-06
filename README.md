@@ -1,2 +1,1 @@
-# ChuanLan253.Net
-创蓝253 net core sdk
+# 创蓝253短信 .NET sdk
