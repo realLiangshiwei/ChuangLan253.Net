@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>梁士伟</Authors>
+    <Company>梁士伟</Company>
+    <Product>ChuangLanSms</Product>
+    <PackageId>ChuangLanSms</PackageId>
+    <Description>创蓝253短信net sdk, 基于standard 2.0</Description>
+    <PackageProjectUrl>https://github.com/liangshiw/ChuangLan253.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/liangshiw/ChuangLan253.Net</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
