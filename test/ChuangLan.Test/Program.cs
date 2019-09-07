@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ChuangLan.Client.ApiRequest;
 using ChuangLan.Configuration;
 using ChuangLan.Sms;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,8 @@ namespace ChuangLan.Test
                 {
                     Account = "Account",
                     Password = "Password",
-                    SignName = "【SignName】"
+                    SignName = "【SignName】",
+                    Host = "host"
                 })
                 .AddTransient<IChuangLanSmsManager, ChuangLanSmsManager>()
                 .BuildServiceProvider();

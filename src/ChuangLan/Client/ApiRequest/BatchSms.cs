@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ChuangLan.Sms;
 
-namespace ChuangLan.Sms
+namespace ChuangLan.Client.ApiRequest
 {
     public class BatchSms : SmsModelBase
     {

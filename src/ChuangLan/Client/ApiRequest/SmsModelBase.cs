@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace ChuangLan.Sms
+namespace ChuangLan.Client.ApiRequest
 {
     public class SmsModelBase
     {

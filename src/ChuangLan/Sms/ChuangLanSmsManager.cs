@@ -1,29 +1,21 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ChuangLan.Client;
+using ChuangLan.Client.ApiRequest;
+using ChuangLan.Client.ApiResult;
 using ChuangLan.Configuration;
-using ChuangLan.Sms;
 using Newtonsoft.Json;
 
-namespace ChuangLan
+namespace ChuangLan.Sms
 {
-    public class ChuangLanSmsManager : IChuangLanSmsManager
+    public class ChuangLanSmsManager : ChuangLanManagerBase, IChuangLanSmsManager
     {
-        private const string SimpleSmsUrl = "http://smssh1.253.com/msg/send/json";
-
-        private const string VariableSmsUrl = "http://smssh1.253.com/msg/variable/json";
-
-        private const string VariableRegex = @"{\$([a-z]+)}";
 
         private readonly ChuangLanOptions _chuangLanOptions;
 
         public ChuangLanSmsManager(ChuangLanOptions chuangLanOptions)
+            : base(chuangLanOptions)
         {
-            Check.CheckNull(chuangLanOptions, nameof(chuangLanOptions));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.Account, nameof(chuangLanOptions.Account));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.Password, nameof(chuangLanOptions.Password));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.SignName, nameof(chuangLanOptions.SignName));
-            _chuangLanOptions = chuangLanOptions;
         }
 
         public async Task<ApiSendSmsResultBase> Send(SingleSms sms)
@@ -33,16 +25,15 @@ namespace ChuangLan
 
             if (Regex.IsMatch(sms.Msg, VariableRegex))
             {
-                url = VariableSmsUrl;
+                url = ApiUrl(ApiConsts.VariableSmsUrl);
                 Check.CheckNullOrWhiteSpace(sms.Params, nameof(sms.Params));
             }
             else
             {
-                url = SimpleSmsUrl;
+                url = ApiUrl(ApiConsts.SimpleSmsUrl);
                 Check.CheckNullOrWhiteSpace(sms.Phone, nameof(sms.Phone));
             }
 
-            var qc = JsonConvert.SerializeObject(sms);
             return await ApiHttpClient.PostAsync<ApiSendSmsResultBase>(url, JsonConvert.SerializeObject(sms));
 
         }
@@ -53,12 +44,12 @@ namespace ChuangLan
             string url;
             if (Regex.IsMatch(sms.Msg, VariableRegex))
             {
-                url = VariableSmsUrl;
+                url = ApiUrl(ApiConsts.VariableSmsUrl);
                 Check.CheckNullOrWhiteSpace(sms.Params, nameof(sms.Params));
             }
             else
             {
-                url = SimpleSmsUrl;
+                url = ApiUrl(ApiConsts.SimpleSmsUrl);
                 Check.CheckNull(sms.Phone, nameof(sms.Phone));
                 foreach (var phone in sms.Phone)
                 {
@@ -66,6 +57,25 @@ namespace ChuangLan
                 }
             }
             return await ApiHttpClient.PostAsync<ApiBatchSmsResult>(url, JsonConvert.SerializeObject(sms));
+        }
+
+        public async Task<ApiBalanceResult> Balance()
+        {
+            return await ApiHttpClient.PostAsync<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { _chuangLanOptions.Account, _chuangLanOptions.Password }));
+        }
+
+        public async Task<ApiPullMoResult> PullMo(ApiPullMo input)
+        {
+            input.Account = _chuangLanOptions.Account;
+            input.Password = _chuangLanOptions.Password;
+            return await ApiHttpClient.PostAsync<ApiPullMoResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
+        }
+
+        public async Task<ApiPullReportResult> PullReport(ApiPullReport input)
+        {
+            input.Account = _chuangLanOptions.Account;
+            input.Password = _chuangLanOptions.Password;
+            return await ApiHttpClient.PostAsync<ApiPullReportResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
         private void CheckSmsModel(SmsModelBase sms)
@@ -81,5 +91,7 @@ namespace ChuangLan
             sms.Account = _chuangLanOptions.Account;
             sms.Password = _chuangLanOptions.Password;
         }
+
+
     }
 }

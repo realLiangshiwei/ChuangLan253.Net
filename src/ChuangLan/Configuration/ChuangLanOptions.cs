@@ -13,5 +13,7 @@
 
 
         public string SignName { get; set; }
+
+        public string Host { get; set; }
     }
 }

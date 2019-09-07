@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ChuangLan.Client
+﻿namespace ChuangLan.Client.ApiResult
 {
     public class ApiBatchSmsResult : ApiSendSmsResultBase
     {
