@@ -18,7 +18,14 @@ namespace ChuangLan.Sms
         {
         }
 
-        public async Task<ApiSendSmsResultBase> Send(SingleSms sms)
+        public async Task<ApiSendSmsResultBase> SendAsync(SingleSms sms)
+        {
+            var url = SendCore(sms);
+            return await ApiHttpClient.PostAsync<ApiSendSmsResultBase>(url, JsonConvert.SerializeObject(sms));
+
+        }
+
+        private string SendCore(SingleSms sms)
         {
             string url;
             CheckSmsModel(sms);
@@ -34,11 +41,20 @@ namespace ChuangLan.Sms
                 Check.CheckNullOrWhiteSpace(sms.Phone, nameof(sms.Phone));
             }
 
-            return await ApiHttpClient.PostAsync<ApiSendSmsResultBase>(url, JsonConvert.SerializeObject(sms));
-
+            return url;
         }
 
-        public async Task<ApiBatchSmsResult> BatchSend(BatchSms sms)
+        public ApiSendSmsResultBase Send(SingleSms sms)
+        {
+            return ApiHttpClient.Post<ApiSendSmsResultBase>(SendCore(sms), JsonConvert.SerializeObject(sms));
+        }
+
+        public async Task<ApiBatchSmsResult> BatchSendAsync(BatchSms sms)
+        {
+            return await ApiHttpClient.PostAsync<ApiBatchSmsResult>(BatchSendCore(sms), JsonConvert.SerializeObject(sms));
+        }
+
+        private string BatchSendCore(BatchSms sms)
         {
             CheckSmsModel(sms);
             string url;
@@ -56,26 +72,51 @@ namespace ChuangLan.Sms
                     Check.CheckNullOrWhiteSpace(phone, nameof(phone));
                 }
             }
-            return await ApiHttpClient.PostAsync<ApiBatchSmsResult>(url, JsonConvert.SerializeObject(sms));
+
+            return url;
         }
 
-        public async Task<ApiBalanceResult> Balance()
+        public ApiBatchSmsResult BatchSend(BatchSms sms)
+        {
+            return ApiHttpClient.Post<ApiBatchSmsResult>(BatchSendCore(sms), JsonConvert.SerializeObject(sms));
+        }
+
+        public async Task<ApiBalanceResult> BalanceAsync()
         {
             return await ApiHttpClient.PostAsync<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { _chuangLanOptions.Account, _chuangLanOptions.Password }));
         }
 
-        public async Task<ApiPullMoResult> PullMo(ApiPullMo input)
+        public ApiBalanceResult Balance()
+        {
+            return  ApiHttpClient.Post<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { _chuangLanOptions.Account, _chuangLanOptions.Password }));
+        }
+
+        public async Task<ApiPullMoResult> PullMoAsync(ApiPullMo input)
         {
             input.Account = _chuangLanOptions.Account;
             input.Password = _chuangLanOptions.Password;
             return await ApiHttpClient.PostAsync<ApiPullMoResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
-        public async Task<ApiPullReportResult> PullReport(ApiPullReport input)
+        public ApiPullMoResult PullMo(ApiPullMo input)
+        {
+            input.Account = _chuangLanOptions.Account;
+            input.Password = _chuangLanOptions.Password;
+            return  ApiHttpClient.Post<ApiPullMoResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
+        }
+
+        public async Task<ApiPullReportResult> PullReportAsync(ApiPullReport input)
         {
             input.Account = _chuangLanOptions.Account;
             input.Password = _chuangLanOptions.Password;
             return await ApiHttpClient.PostAsync<ApiPullReportResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
+        }
+
+        public ApiPullReportResult PullReport(ApiPullReport input)
+        {
+            input.Account = _chuangLanOptions.Account;
+            input.Password = _chuangLanOptions.Password;
+            return  ApiHttpClient.Post<ApiPullReportResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
         private void CheckSmsModel(SmsModelBase sms)

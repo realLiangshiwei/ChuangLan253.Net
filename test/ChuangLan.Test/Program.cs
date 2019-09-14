@@ -25,7 +25,7 @@ namespace ChuangLan.Test
 
             var sms = services.GetService<IChuangLanSmsManager>();
 
-            var res = await sms.Send(new SingleSms()
+            var res = await sms.SendAsync(new SingleSms()
             {
                 Msg = "验证码{$var}，您正在注册成为新用户，感谢您的支持！",
                 Params = "18611223344,123456"

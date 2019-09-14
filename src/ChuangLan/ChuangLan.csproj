@@ -9,14 +9,12 @@
     <Description>创蓝253短信net sdk, 基于standard 2.0</Description>
     <PackageProjectUrl>https://github.com/liangshiw/ChuangLan253.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/liangshiw/ChuangLan253.Net</RepositoryUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Account\" />
+    <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

@@ -13,34 +13,69 @@ namespace ChuangLan
         /// </summary>
         /// <param name="sms"></param>
         /// <returns></returns>
-        Task<ApiSendSmsResultBase> Send(SingleSms sms);
+        ApiSendSmsResultBase Send(SingleSms sms);
+
+        /// <summary>
+        /// 单条发送
+        /// </summary>
+        /// <param name="sms"></param>
+        /// <returns></returns>
+        Task<ApiSendSmsResultBase> SendAsync(SingleSms sms);
 
         /// <summary>
         /// 批量发送
         /// </summary>
         /// <param name="sms"></param>
         /// <returns></returns>
-        Task<ApiBatchSmsResult> BatchSend(BatchSms sms);
+        ApiBatchSmsResult BatchSend(BatchSms sms);
+
+        /// <summary>
+        /// 批量发送
+        /// </summary>
+        /// <param name="sms"></param>
+        /// <returns></returns>
+        Task<ApiBatchSmsResult> BatchSendAsync(BatchSms sms);
 
         /// <summary>
         /// 余额查询
         /// </summary>
         /// <returns></returns>
-        Task<ApiBalanceResult> Balance();
+        ApiBalanceResult Balance();
+
+        /// <summary>
+        /// 余额查询
+        /// </summary>
+        /// <returns></returns>
+        /// <returns></returns>
+        Task<ApiBalanceResult> BalanceAsync();
 
         /// <summary>
         /// 拉取上行明细接口
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<ApiPullMoResult> PullMo(ApiPullMo input);
+        ApiPullMoResult PullMo(ApiPullMo input);
+
+        /// <summary>
+        /// 拉取上行明细接口
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<ApiPullMoResult> PullMoAsync(ApiPullMo input);
 
         /// <summary>
         /// 拉取状态报告
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<ApiPullReportResult> PullReport(ApiPullReport input);
+        ApiPullReportResult PullReport(ApiPullReport input);
+
+        /// <summary>
+        /// 拉取状态报告
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<ApiPullReportResult> PullReportAsync(ApiPullReport input);
     }
 
 }
