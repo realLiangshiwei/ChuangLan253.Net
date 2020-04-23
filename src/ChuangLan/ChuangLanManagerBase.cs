@@ -10,12 +10,12 @@ namespace ChuangLan
 
         public ChuangLanManagerBase(ChuangLanOptions chuangLanOptions)
         {
-            Check.CheckNull(chuangLanOptions, nameof(chuangLanOptions));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.Account, nameof(chuangLanOptions.Account));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.Password, nameof(chuangLanOptions.Password));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.Host, nameof(chuangLanOptions.Host));
-            Check.CheckNullOrWhiteSpace(chuangLanOptions.SignName, nameof(chuangLanOptions.SignName));
             ChuangLanOptions = chuangLanOptions;
+            Check.CheckNull(chuangLanOptions, nameof(chuangLanOptions));
+            Check.CheckNullOrWhiteSpace(ChuangLanOptions.Account, nameof(ChuangLanOptions.Account));
+            Check.CheckNullOrWhiteSpace(ChuangLanOptions.Password, nameof(ChuangLanOptions.Password));
+            Check.CheckNullOrWhiteSpace(ChuangLanOptions.Host, nameof(ChuangLanOptions.Host));
+            Check.CheckNullOrWhiteSpace(ChuangLanOptions.SignName, nameof(ChuangLanOptions.SignName));
         }
 
         public virtual string ApiUrl(string api)

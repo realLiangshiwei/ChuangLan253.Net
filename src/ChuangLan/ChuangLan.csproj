@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>梁士伟</Authors>
+    <Authors>liangshiwei</Authors>
     <Company>梁士伟</Company>
     <Product>ChuangLanSms</Product>
     <PackageId>ChuangLanSms</PackageId>
     <Description>创蓝253短信net sdk, 基于standard 2.0</Description>
     <PackageProjectUrl>https://github.com/liangshiw/ChuangLan253.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/liangshiw/ChuangLan253.Net</RepositoryUrl>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.0.0" />
   </ItemGroup>
 

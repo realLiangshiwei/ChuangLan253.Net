@@ -11,8 +11,6 @@ namespace ChuangLan.Sms
     public class ChuangLanSmsManager : ChuangLanManagerBase, IChuangLanSmsManager
     {
 
-        private readonly ChuangLanOptions _chuangLanOptions;
-
         public ChuangLanSmsManager(ChuangLanOptions chuangLanOptions)
             : base(chuangLanOptions)
         {
@@ -83,39 +81,39 @@ namespace ChuangLan.Sms
 
         public async Task<ApiBalanceResult> BalanceAsync()
         {
-            return await ApiHttpClient.PostAsync<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { _chuangLanOptions.Account, _chuangLanOptions.Password }));
+            return await ApiHttpClient.PostAsync<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { ChuangLanOptions.Account, ChuangLanOptions.Password }));
         }
 
         public ApiBalanceResult Balance()
         {
-            return  ApiHttpClient.Post<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { _chuangLanOptions.Account, _chuangLanOptions.Password }));
+            return  ApiHttpClient.Post<ApiBalanceResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(new { ChuangLanOptions.Account, ChuangLanOptions.Password }));
         }
 
         public async Task<ApiPullMoResult> PullMoAsync(ApiPullMo input)
         {
-            input.Account = _chuangLanOptions.Account;
-            input.Password = _chuangLanOptions.Password;
+            input.Account = ChuangLanOptions.Account;
+            input.Password = ChuangLanOptions.Password;
             return await ApiHttpClient.PostAsync<ApiPullMoResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
         public ApiPullMoResult PullMo(ApiPullMo input)
         {
-            input.Account = _chuangLanOptions.Account;
-            input.Password = _chuangLanOptions.Password;
+            input.Account = ChuangLanOptions.Account;
+            input.Password = ChuangLanOptions.Password;
             return  ApiHttpClient.Post<ApiPullMoResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
         public async Task<ApiPullReportResult> PullReportAsync(ApiPullReport input)
         {
-            input.Account = _chuangLanOptions.Account;
-            input.Password = _chuangLanOptions.Password;
+            input.Account = ChuangLanOptions.Account;
+            input.Password = ChuangLanOptions.Password;
             return await ApiHttpClient.PostAsync<ApiPullReportResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
         public ApiPullReportResult PullReport(ApiPullReport input)
         {
-            input.Account = _chuangLanOptions.Account;
-            input.Password = _chuangLanOptions.Password;
+            input.Account = ChuangLanOptions.Account;
+            input.Password = ChuangLanOptions.Password;
             return  ApiHttpClient.Post<ApiPullReportResult>(ApiUrl(ApiConsts.BalanceUrl), JsonConvert.SerializeObject(input));
         }
 
@@ -125,12 +123,12 @@ namespace ChuangLan.Sms
             Check.CheckNullOrWhiteSpace(sms.Msg, nameof(sms.Msg));
             if (!sms.Report.HasValue)
             {
-                sms.Report = _chuangLanOptions.Report;
+                sms.Report = ChuangLanOptions.Report;
             }
 
-            sms.Msg = _chuangLanOptions.SignName + sms.Msg;
-            sms.Account = _chuangLanOptions.Account;
-            sms.Password = _chuangLanOptions.Password;
+            sms.Msg = ChuangLanOptions.SignName + sms.Msg;
+            sms.Account = ChuangLanOptions.Account;
+            sms.Password = ChuangLanOptions.Password;
         }
 
 
